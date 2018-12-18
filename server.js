@@ -14,11 +14,13 @@ var express = require('express'),
 
 //Default Error Handling
   app.use((req, res, next) => {
+    console.log("%s:  Invalid request (404) from: %s", new Date() , req.connection.remoteAddress);
     const error = new Error('Not Found!');
     error.status = 404;
     next(error);
   });
   app.use((error, req, res, next) => {
+    console.log("%s:  Internal Server Error (500) processing request from: %s", new Date() , req.connection.remoteAddress);
     res.status(error.status || 500);
     res.json({
       error: {
